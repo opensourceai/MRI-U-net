@@ -23,7 +23,6 @@ class UNetKeras(object):
         pool2 = tf.keras.layers.MaxPooling2D(pool_size=(2, 2))(conv2)
 
         conv3 = tf.keras.layers.Conv2D(256, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool2)
-
         conv3 = tf.keras.layers.Conv2D(256, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv3)
         pool3 = tf.keras.layers.MaxPooling2D(pool_size=(2, 2))(conv3)
 
@@ -96,7 +95,6 @@ class UNetKeras(object):
                        class_weight, sample_weight, initial_epoch, steps_per_epoch, validation_steps)
 
 
-
 # 加载数据
 def _load(path_name):
     """
@@ -154,9 +152,9 @@ def get_data(path_name):
     # one_hot 处理
     # label shape = (n,512,512,1)
     label_tile = np.tile(label, (1, 1, 1, 3))
-    label_tile[:, :, :, 0][label_tile[:, :, :, 0] != 1 or label_tile[:, :, :, 0] != 2] = 1
-    label_tile[:, :, :, 1][label_tile[:, :, :, 1] != 0 or label_tile[:, :, :, 1] != 2] = 1
-    label_tile[:, :, :, 2][label_tile[:, :, :, 2] != 0 or label_tile[:, :, :, 2] != 1] = 1
+    label_tile[:, :, :, 0] = np.where(label_tile[:, :, :, 0] == 0, 1, 0)
+    label_tile[:, :, :, 1] = np.where(label_tile[:, :, :, 1] == 1, 1, 0)
+    label_tile[:, :, :, 2] = np.where(label_tile[:, :, :, 2] == 2, 1, 0)
 
     label = label_tile
     return image, label
