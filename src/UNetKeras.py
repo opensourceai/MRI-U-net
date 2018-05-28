@@ -1,7 +1,5 @@
 import tensorflow as tf
 # import matplotlib.pyplot as plt
-import h5py
-import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 # import cv2
@@ -65,13 +63,13 @@ class UNetKeras(object):
         conv9 = tf.keras.layers.Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
         conv9 = tf.keras.layers.Conv2D(2, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
         # 最后一层为softmax层，输出的通道为3，对应着背景、膀胱壁区域、肿瘤区域
-        conv10 = tf.keras.layers.Conv2D(3, 3, activation='softmax', padding='same', kernel_initializer='he_normal')(
+        conv10 = tf.keras.layers.Conv2D(3, 1, activation='softmax', padding='same', kernel_initializer='he_normal')(
             conv9)
 
         self.model = tf.keras.Model(inputs=inputs, outputs=conv10)
 
     def compile(self, optimizer=tf.keras.optimizers.Adam(lr=1e-5, beta_1=0.90, beta_2=0.90),
-                loss="sparse_categorical_crossentropy",
+                loss="categorical_crossentropy",
                 metrics=['accuracy']):
         self.model.compile(optimizer=optimizer,
                            loss=loss,
@@ -96,10 +94,8 @@ class UNetKeras(object):
 
 
 # 加载数据
-def _load(path_name):
+def _load():
     """
-
-    :param path_name:
     :return:
     """
     import os
@@ -115,14 +111,14 @@ def _load(path_name):
         file.create_dataset('images', data=images)  # 写入
         file.close()
     else:
-        with h5py.File(path_name + '/images.h5', 'r') as flie:
-            images = flie.get("images")
+        with h5py.File('../data/images.h5', 'r') as file:
+            images = file.get("images")
             images = np.array(images, dtype=np.float32)
 
     if not os.path.exists("../data/labels.h5"):
         labels = []
         for i in range(1, 2201):
-            now_file_path = "Label/Label" + str(i) + ".png"
+            now_file_path = "../data/Label/Label" + str(i) + ".png"
             label = np.array(ndimage.imread(now_file_path, flatten=False))
             labels.append(label)  # images shape=(m,64,64,3)
         labels = np.array(labels, copy=True)
@@ -131,8 +127,8 @@ def _load(path_name):
         file.close()
 
     else:
-        with h5py.File(path_name + '/labels.h5', 'r') as flie:
-            labels = flie.get("labels")
+        with h5py.File('../data/labels.h5', 'r') as file:
+            labels = file.get("labels")
             labels = np.array(labels, dtype=np.float32)
 
     images /= 255
@@ -142,15 +138,17 @@ def _load(path_name):
     return train_image, train_label
 
 
-def get_data(path_name):
-    import os
-    from sklearn import preprocessing
-    image, label = _load(path_name)
+def get_data():
+
+    image, label = _load()
+    # 0 为背景区域
     label[label == 128] = 1  # 膀胱壁区域
     label[label == 255] = 2  # 肿瘤区域
 
     # one_hot 处理
-    # label shape = (n,512,512,1)
+    # (n,512,512) => (n,512,512,1)
+    label = np.expand_dims(label, -1)
+    print(label.shape)
     label_tile = np.tile(label, (1, 1, 1, 3))
     label_tile[:, :, :, 0] = np.where(label_tile[:, :, :, 0] == 0, 1, 0)
     label_tile[:, :, :, 1] = np.where(label_tile[:, :, :, 1] == 1, 1, 0)
@@ -166,7 +164,7 @@ def split_train_test(X, y, test_size=0.33, random_state=42):
     return X_train, X_test, y_train, y_test
 
 
-# 打乱数据顺序
+# 打乱数据顺序 可选步骤
 def shuffle_data(X, y, random_state=0, n_samples=2):
     X, y = shuffle(X, y, random_state, n_samples)
     return X, y
