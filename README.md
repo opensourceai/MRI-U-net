@@ -12,4 +12,25 @@
 开头，标记的图像以“Label”开头，后面的数字代表图像编号。在标记图像中，
 我们已将肿瘤区域（灰度值255）和膀胱壁区域（灰度值128）分开。
 
+**文件说明**
 
+    │  README.md
+    ├─data
+    │  │  README.md 数据说明
+    │
+    ├─img 图片
+    │
+    │
+    ├─model 模型文件存放
+    └─src
+        │  Main.py 主程序
+        │  UNetKeras.py U-Net类以及基本工具
+
+
+
+**_开发环境_**
+
+- Python3.6+
+- TensorFlow1.8+
+- Numpy
+- Sklearn
