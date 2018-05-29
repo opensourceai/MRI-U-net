@@ -96,6 +96,13 @@ class UNetKeras(object):
         self.model.fit(x, y, batch_size, epochs, verbose, callbacks, validation_split, validation_data, shuffle,
                        class_weight, sample_weight, initial_epoch, steps_per_epoch, validation_steps)
 
+    def predict(self, x, batch_size=32, verbose=1, steps=None):
+
+
+        pred = self.model.predict(x, batch_size=batch_size, verbose=verbose, steps=steps)
+
+        return np.argmax(pred, axis=-1)
+
 
 # 加载数据
 def _load(path_name):
@@ -145,7 +152,6 @@ def _load(path_name):
 
 
 def get_data(path_name):
-
     image, label = _load(path_name)
     label[label == 128] = 1  # 膀胱壁区域
     label[label == 255] = 2  # 肿瘤区域
