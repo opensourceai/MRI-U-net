@@ -32,5 +32,6 @@
 
 - Python3.6+
 - TensorFlow1.8+
+- Keras
 - Numpy
 - Sklearn
