@@ -2,7 +2,6 @@
 
 **基于U-net的膀胱壁边缘以及膀胱肿瘤检测**
 
-
 膀胱癌位居男性恶性肿瘤发病率第四、死亡率第八，
 由于复发率高，患者多在诊断、治疗、复发、再治疗中循环
 ，是目前花费最高的癌症之一。实现膀胱肿瘤的早期检测对于预防
@@ -16,15 +15,38 @@
 
     │  README.md
     ├─data
-    │  │  README.md 数据说明
+    │     README.md 数据说明
     │
     ├─img 图片
     │
     │
-    ├─model 模型文件存放
+    ├─model
+    │      README.md
+    │      slurm-35844.out 训练时产生的数据文件
+    │      
     └─src
-        │  Main.py 主程序
-        │  UNetKeras.py U-Net类以及基本工具
+            Main.py 主程序
+            UNetKeras.py U-net类
+            utils.py 基础工具
+
+
+
+U-net基本结构
+![U-net](img/u-net.png)
+
+由于本项目最终做的是多（3）分类，因此在在最后一层用的是Softmax激活函数并且最后一层的通道为分类数（即3）。
+
+**数据**
+
+_**三种不同种类的数据**_
+
+Image:
+
+![](img/IM90.png) ![](img/IM198.png) ![](img/IM2018.png) 
+
+Label:
+
+![](img/Label90.png) ![](img/Label198.png) ![](img/Label2018.png)
 
 
 
@@ -34,4 +56,4 @@
 - TensorFlow1.8+
 - Keras
 - Numpy
-- Sklearn
+- Sklearn 0.19.1
