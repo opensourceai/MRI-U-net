@@ -12,8 +12,16 @@ import numpy as np
 
 class UNetKeras(object):
 
-    def __init__(self, high=512, weight=512, channel=1):
-        inputs = tf.keras.layers.Input((high, weight, channel))
+    def __init__(self, height=512, width=512, channel=1, classes=3):
+        """
+        U-net
+
+        :param height int: The height of the picture
+        :param width int: The width of the picture
+        :param channel int: The number of channels in the picture,default is 1
+        :param classes int: Classification number
+        """
+        inputs = tf.keras.layers.Input((height, width, channel))
         conv1 = tf.keras.layers.Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(inputs)
         pool1 = tf.keras.layers.MaxPooling2D(pool_size=(2, 2))(conv1)
 
@@ -63,14 +71,14 @@ class UNetKeras(object):
         conv9 = tf.keras.layers.Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge9)
         conv9 = tf.keras.layers.Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
         conv9 = tf.keras.layers.Conv2D(2, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
-        # 最后一层为softmax层，输出的通道为3，对应着背景、膀胱壁区域、肿瘤区域
-        conv10 = tf.keras.layers.Conv2D(3, 3, activation='softmax', padding='same', kernel_initializer='he_normal')(
-            conv9)
+        # 最后一层为softmax层，输出的通道为classes，对应着分类数
+        conv10 = tf.keras.layers.Conv2D(classes, 3, activation='softmax', padding='same',
+                                        kernel_initializer='he_normal')(conv9)
 
         self.model = tf.keras.Model(inputs=inputs, outputs=conv10)
 
     def compile(self, optimizer=tf.keras.optimizers.Adam(lr=1e-5, beta_1=0.90, beta_2=0.90),
-                loss="sparse_categorical_crossentropy",
+                loss="categorical_crossentropy",
                 metrics=['accuracy']):
         self.model.compile(optimizer=optimizer,
                            loss=loss,
@@ -94,9 +102,5 @@ class UNetKeras(object):
                        class_weight, sample_weight, initial_epoch, steps_per_epoch, validation_steps)
 
     def predict(self, x, batch_size=32, verbose=1, steps=None):
-
         pred = self.model.predict(x, batch_size=batch_size, verbose=verbose, steps=steps)
-
         return np.argmax(pred, axis=-1)
-
-
