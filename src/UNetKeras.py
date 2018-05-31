@@ -12,8 +12,8 @@ import numpy as np
 
 class UNetKeras(object):
 
-    def __init__(self, high=512, weight=512, chanel=1):
-        inputs = tf.keras.layers.Input((high, weight, chanel))
+    def __init__(self, high=512, weight=512, channel=1):
+        inputs = tf.keras.layers.Input((high, weight, channel))
         conv1 = tf.keras.layers.Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(inputs)
         pool1 = tf.keras.layers.MaxPooling2D(pool_size=(2, 2))(conv1)
 
