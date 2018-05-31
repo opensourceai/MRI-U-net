@@ -77,7 +77,7 @@ def encode_one_hot(x, classes_num=3):
     :return: label of one_hot
     :rtype: narray
     """
-    if x.shape()[-1] == 1:
+    if x.shape[-1] == 1:
         x_tiled = np.tile(x, (1, 1, 1, classes_num))
 
         for i in range(classes_num):
