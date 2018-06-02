@@ -4,8 +4,7 @@
 # E-mail:zero@osai.club
 # Create Date: 2018年5月30日
 
-from sklearn.model_selection import train_test_split
-from sklearn.utils import shuffle
+
 import numpy as np
 import h5py
 from scipy import ndimage
@@ -91,12 +90,3 @@ def encode_one_hot(x, classes_num=3):
         raise IndexError("The last dimension is not 1")
     return x_tiled
 
-
-# 划分训练集和测试集
-def split_train_test(*arrays, **options):
-    return train_test_split(*arrays, **options)
-
-
-# 打乱数据顺序
-def shuffle_data(*arrays, **options):
-    return shuffle(*arrays, **options)
