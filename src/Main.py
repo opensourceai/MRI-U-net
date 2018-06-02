@@ -8,7 +8,7 @@ from src.utils import get_data, shuffle_data, split_train_test
 from src.UNetKeras import UNetKeras
 import tensorflow as tf
 
-X, y = get_data("data")
+X, y = get_data()
 X, y = shuffle_data(X, y, random_state=2018)
 X_train, X_test, y_train, y_test = split_train_test(X, y, test_size=0.01, random_state=2018)
 del X, y
