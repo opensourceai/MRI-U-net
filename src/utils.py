@@ -38,7 +38,7 @@ def _load():
     if not os.path.exists("../data/labels.h5"):
         labels = []
         for i in range(1, 2201):
-            now_file_path = "data/Label" + str(i) + ".png"
+            now_file_path = "../data/Label/Label" + str(i) + ".png"
             label = np.array(ndimage.imread(now_file_path, flatten=False))
             labels.append(label)  # images shape=(m,64,64,3)
         labels = np.array(labels, copy=True)
@@ -52,8 +52,8 @@ def _load():
             labels = np.array(labels, dtype=np.float32)
 
     images /= 255
-    train_image = np.expand_dims(images[:], -1)
-    train_label = labels[:]
+    train_image = np.expand_dims(images, -1)
+    train_label = np.expand_dims(labels, -1)
     del images, labels
     return train_image, train_label
 
@@ -65,6 +65,7 @@ def get_data():
 
     # one_hot 处理
     # label shape = (n,512,512,1)
+    print(label.shape)
     label = encode_one_hot(label, 3)
 
     return image, label
