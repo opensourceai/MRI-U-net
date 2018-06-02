@@ -53,7 +53,10 @@ def _load():
 
     images /= 255
     train_image = np.expand_dims(images, -1)
+    print(train_image.shape)
     train_label = np.expand_dims(labels, -1)
+    print(train_label.shape)
+
     del images, labels
     return train_image, train_label
 
@@ -95,6 +98,5 @@ def split_train_test(*arrays, **options):
 
 
 # 打乱数据顺序
-def shuffle_data(X, y, random_state=0, n_samples=None):
-    X, y = shuffle(X, y, random_state, n_samples)
-    return X, y
+def shuffle_data(*arrays, **options):
+    return shuffle(*arrays, **options)
