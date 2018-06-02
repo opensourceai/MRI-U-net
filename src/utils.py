@@ -89,9 +89,8 @@ def encode_one_hot(x, classes_num=3):
 
 
 # 划分训练集和测试集
-def split_train_test(X, y, test_size=0.33, random_state=42):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size, random_state)
-    return X_train, X_test, y_train, y_test
+def split_train_test(*arrays, **options):
+    return train_test_split(*arrays, **options)
 
 
 # 打乱数据顺序

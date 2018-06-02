@@ -14,6 +14,8 @@ X_train, X_test, y_train, y_test = split_train_test(X, y, test_size=0.01, random
 del X, y
 model = UNetKeras(high=512, weight=512, channel=1)
 
+model.model.save()
+
 model.compile()
 ModelCheckpoint = tf.keras.callbacks.ModelCheckpoint("model/model.h5", monitor="val_loss", verbose=1,
                                                      save_best_only=True)
