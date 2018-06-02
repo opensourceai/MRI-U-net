@@ -12,7 +12,7 @@ from scipy import ndimage
 
 
 # 加载数据
-def _load(path_name):
+def _load():
     """
 
     :param path_name:
@@ -31,14 +31,14 @@ def _load(path_name):
         file.create_dataset('images', data=images)  # 写入
         file.close()
     else:
-        with h5py.File(path_name + '/images.h5', 'r') as flie:
+        with h5py.File('../data/images.h5', 'r') as flie:
             images = flie.get("images")
             images = np.array(images, dtype=np.float32)
 
     if not os.path.exists("../data/labels.h5"):
         labels = []
         for i in range(1, 2201):
-            now_file_path = "Label/Label" + str(i) + ".png"
+            now_file_path = "data/Label" + str(i) + ".png"
             label = np.array(ndimage.imread(now_file_path, flatten=False))
             labels.append(label)  # images shape=(m,64,64,3)
         labels = np.array(labels, copy=True)
@@ -47,7 +47,7 @@ def _load(path_name):
         file.close()
 
     else:
-        with h5py.File(path_name + '/labels.h5', 'r') as flie:
+        with h5py.File('../data/labels.h5', 'r') as flie:
             labels = flie.get("labels")
             labels = np.array(labels, dtype=np.float32)
 
@@ -58,8 +58,8 @@ def _load(path_name):
     return train_image, train_label
 
 
-def get_data(path_name):
-    image, label = _load(path_name)
+def get_data():
+    image, label = _load()
     label[label == 128] = 1  # 膀胱壁区域
     label[label == 255] = 2  # 肿瘤区域
 
