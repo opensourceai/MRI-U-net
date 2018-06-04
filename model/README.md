@@ -2,7 +2,7 @@
 
 已训练好的模型文件:
 
-- [x] 链接: https://pan.baidu.com/s/1V_fnjAjRt1oCxODPpUtDnA 密码: t53c
+~~链接: https://pan.baidu.com/s/1V_fnjAjRt1oCxODPpUtDnA 密码: t53c~~
 
 当前目录下的文件`slurm-35844.out`为训练过程产生的数据
 
