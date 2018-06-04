@@ -72,7 +72,7 @@ class UNetKeras(object):
         conv9 = tf.keras.layers.Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
         conv9 = tf.keras.layers.Conv2D(2, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
         # 最后一层为softmax层，输出的通道为classes，对应着分类数
-        conv10 = tf.keras.layers.Conv2D(classes, 3, activation='softmax', padding='same',
+        conv10 = tf.keras.layers.Conv2D(classes, 1, activation='softmax', padding='same',
                                         kernel_initializer='he_normal')(conv9)
 
         self.model = tf.keras.Model(inputs=inputs, outputs=conv10)
