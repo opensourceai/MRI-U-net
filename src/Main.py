@@ -11,7 +11,7 @@ from src.UNetKeras import UNetKeras
 import tensorflow as tf
 
 if __name__ == "__mian__":
-    print("====Get data====")
+    print("=========          Get data            =========")
     X, y = get_data()
     # X, y = shuffle(X, y, random_state=2018)
     print("=========Split train sets and test sets=========")
