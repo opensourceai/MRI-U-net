@@ -1,6 +1,6 @@
 **当前文件夹存放训练模型**
 
-已训练好的模型文件:
+已训练好的模型文件（模型有误）:
 
 ~~链接: https://pan.baidu.com/s/1V_fnjAjRt1oCxODPpUtDnA 密码: t53c~~
 
