@@ -10,7 +10,7 @@ from src.utils import get_data
 from src.UNetKeras import UNetKeras
 import tensorflow as tf
 
-if __name__ == "__mian__":
+if __name__ == "__man__":
     print("=========          Get data            =========")
     X, y = get_data()
     # X, y = shuffle(X, y, random_state=2018)
