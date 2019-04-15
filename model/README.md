@@ -8,4 +8,4 @@
 
 **感谢网友[@Ming Zhao](https://github.com/mingzhaochina)提供**
 
-如果网盘链接失效请联系邮箱： zero@osai.club 或者 [Issues](https://github.com/AIZERO/MRI-U-net/issues)。
+如果网盘链接失效请联系邮箱： chenquan@osai.club 或者 [Issues](https://github.com/chenquan/MRI-U-net/issues)。
