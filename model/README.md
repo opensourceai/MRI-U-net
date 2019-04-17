@@ -8,4 +8,4 @@
 当前目录下的文件`slurm-35844.out`为训练过程产生的数据
 > 新的模型：https://github.com/ChenQuan/MRI-U-net/issues/3 
 
-如果网盘链接失效请联系邮箱： chenquan@osai.club 或者 [Issues](https://github.com/chenquan/MRI-U-net/issues)。
+如果网盘链接失效请[Issues](https://github.com/chenquan/MRI-U-net/issues)。
