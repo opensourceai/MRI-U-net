@@ -105,3 +105,4 @@ ENV/
 
 # data
 data/**.png
+data/**.h5

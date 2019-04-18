@@ -50,7 +50,7 @@ def _load():
             labels = flie.get("labels")
             labels = np.array(labels, dtype=np.float32)
 
-    images /= 255
+    images = images/255.
     train_image = np.expand_dims(images, -1)
     print(train_image.shape)
     train_label = np.expand_dims(labels, -1)
