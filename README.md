@@ -57,7 +57,7 @@ Label:
 **_开发环境_**
 
 - Python3.6+
-- TensorFlow1.8+
+- TensorFlow1.8
 - Keras
 - Numpy
 - Sklearn 0.19.1
