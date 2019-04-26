@@ -9,3 +9,6 @@
 > 新的模型：https://github.com/ChenQuan/MRI-U-net/issues/3 
 
 如果网盘链接失效请[Issues](https://github.com/chenquan/MRI-U-net/issues)。
+
+**模型问题**
+- [模型效果无效](https://github.com/ChenQuan/MRI-U-net/issues/5)
