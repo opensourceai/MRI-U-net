@@ -70,7 +70,7 @@ Label:
 OpenSourceAI Org：
 https://github.com/opensourceai
 
-QQ Group:[584399282](https://shang.qq.com/wpa/qunwpa?idkey=46b645557bb6e6f118e0f786daacf61bd353b68a7b1ccba71b4e85b6d1b75b31)
+QQ Group:  [584399282](https://shang.qq.com/wpa/qunwpa?idkey=46b645557bb6e6f118e0f786daacf61bd353b68a7b1ccba71b4e85b6d1b75b31)
 
 ![QQ Group:584399282](https://github.com/opensourceai/community/blob/master/img/qq-group-share.png)
 
