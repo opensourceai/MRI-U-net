@@ -61,3 +61,16 @@ Label:
 - Keras
 - Numpy
 - Sklearn 0.19.1
+
+
+**OpenSourceAI**
+
+欢迎有兴趣的朋友加入我们，一个喜欢开源、热爱AI的团队。
+
+OpenSourceAI Org：
+https://github.com/opensourceai
+
+QQ Group:
+
+![QQ Group:584399282](https://github.com/opensourceai/community/blob/master/img/qq-group-share.png)
+
