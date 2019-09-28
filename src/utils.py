@@ -8,6 +8,9 @@
 import numpy as np
 import h5py
 from scipy import ndimage
+import scipy
+
+image_h_w = 256
 
 
 # 加载数据
@@ -24,7 +27,8 @@ def _load():
         for i in range(1, 2201):
             now_file_path = "../data/Image/IM" + str(i) + ".png"
             image = np.array(ndimage.imread(now_file_path, flatten=False))
-            images.append(image)  # images shape=(m,64,64,3)
+            image = scipy.misc.imresize(image, size=(image_h_w, image_h_w))
+            images.append(image)
         images = np.array(images, copy=True)
         file = h5py.File('../data/images.h5', 'w')  # 创建HDF5文件
         file.create_dataset('images', data=images)  # 写入
@@ -50,7 +54,7 @@ def _load():
             labels = flie.get("labels")
             labels = np.array(labels, dtype=np.float32)
 
-    images = images/255.
+    images = images / 255.
     train_image = np.expand_dims(images, -1)
     print(train_image.shape)
     train_label = np.expand_dims(labels, -1)
@@ -89,4 +93,3 @@ def encode_one_hot(x, classes_num=3):
     else:
         raise IndexError("The last dimension is not 1")
     return x_tiled
-

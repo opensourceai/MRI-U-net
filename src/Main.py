@@ -6,7 +6,7 @@
 
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
-from src.utils import get_data
+from src.utils import get_data, image_h_w
 from src.UNetKeras import UNetKeras
 import tensorflow as tf
 
@@ -19,7 +19,7 @@ if __name__ == "__main__":
     del X, y
 
     print("=========          Build model         =========")
-    model = UNetKeras()
+    model = UNetKeras(height=image_h_w, width=image_h_w)
     model.compile()
 
     print("=========       Start train model      =========")
@@ -38,8 +38,8 @@ if __name__ == "__main__":
     import numpy as np
     import os
 
-    images_test = np.reshape(np.argmax(y_test, axis=-1), (-1, 512, 512))
-    images_pred = np.reshape(pred, (-1, 512, 512))
+    images_test = np.reshape(np.argmax(y_test, axis=-1), (-1, image_h_w, image_h_w))
+    images_pred = np.reshape(pred, (-1, image_h_w, image_h_w))
     predict_file_path = ".predict_images_last_saved_model/"
     if not os.path.exists(predict_file_path):
         os.mkdir(predict_file_path)
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     val_best_model = tf.keras.models.load_model("model/val_best_model.h5")
     val_best_model.evaluate(X_test, y_test, batch_size=32)
     pred = val_best_model.predict(X_test)
-    images_pred = np.reshape(np.argmax(pred, axis=-1), (-1, 512, 512))
+    images_pred = np.reshape(np.argmax(pred, axis=-1), (-1, image_h_w, image_h_w))
 
     for i in range(len(images_pred)):
         # plt.subplot(1, 2, 1)
