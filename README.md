@@ -62,6 +62,25 @@ Label:
 - Numpy
 - Sklearn 0.19.1
 
+**_使用_**
+
+- 重新训练模型：
+  - 打开`data`目录，阅读`README.md`文件，下载并解压数据集
+  - 使用`python`运行`Main.py`主程序
+- 使用模型已经训练的模型：
+  - 打开`model`目录，阅读`README.md`文件，下载模型
+- 预测([参考](https://github.com/opensourceai/MRI-U-net/blob/27bbf5ed93691e01241754e5f87995ae2a73cc6d/src/Main.py#L61-L64))：
+  - ```python
+    from scipy import ndimage
+    import tensorflow as tf
+    
+    image = np.array(ndimage.imread("img.png", flatten=False))
+    image /=255.
+    image = np.expand_dims(image, -1)
+    
+    model = tf.keras.model.load("model/model_final_time.h5") # 或者val_best_time.h5
+    pred = model.predict(image)
+    ```
 
 **OpenSourceAI**
 
