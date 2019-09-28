@@ -73,6 +73,7 @@ Label:
   - ```python
     from scipy import ndimage
     import tensorflow as tf
+    import numpy as np
     
     image = np.array(ndimage.imread("img.png", flatten=False))
     image /=255.
