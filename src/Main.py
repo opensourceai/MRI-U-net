@@ -9,7 +9,7 @@ from sklearn.utils import shuffle
 from src.utils import get_data, image_h_w
 from src.UNetKeras import UNetKeras
 import tensorflow as tf
-
+BATCH_SIZE = 1
 if __name__ == "__main__":
     print("=========          Get data            =========")
     X, y = get_data()
@@ -25,15 +25,15 @@ if __name__ == "__main__":
     print("=========       Start train model      =========")
     ModelCheckpoint = tf.keras.callbacks.ModelCheckpoint("model/val_best_model.h5", monitor="val_loss", verbose=1,
                                                          save_best_only=True)
-    model.fit(X_train, y_train, batch_size=1, epochs=10, validation_split=0.01, callbacks=[ModelCheckpoint])
+    model.fit(X_train, y_train, batch_size=BATCH_SIZE, epochs=10, validation_split=0.01, callbacks=[ModelCheckpoint])
     print("=========    Save last time model      =========")
 
     model.model.save("model/model_final_time.h5")
 
     print("=========    Model evaluate Start      =========")
     print("=========  Test the last saved model   =========")
-    model.model.evaluate(X_test, y_test, batch_size=32)
-    pred = model.predict(X_test)
+    model.model.evaluate(X_test, y_test, batch_size=BATCH_SIZE)
+    pred = model.predict(X_test,batch_size=BATCH_SIZE)
     import matplotlib.pyplot as plt
     import numpy as np
     import os
@@ -59,8 +59,8 @@ if __name__ == "__main__":
         os.mkdir(predict_file_path)
 
     val_best_model = tf.keras.models.load_model("model/val_best_model.h5")
-    val_best_model.evaluate(X_test, y_test, batch_size=32)
-    pred = val_best_model.predict(X_test)
+    val_best_model.evaluate(X_test, y_test, batch_size=BATCH_SIZE)
+    pred = val_best_model.predict(X_test,batch_size=BATCH_SIZE)
     images_pred = np.reshape(np.argmax(pred, axis=-1), (-1, image_h_w, image_h_w))
 
     for i in range(len(images_pred)):
